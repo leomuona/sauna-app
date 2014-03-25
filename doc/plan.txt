@@ -1,0 +1,45 @@
+Sauna app
+---------
+Sensorit
+- häkä
+- ilmankosteus
+- lämpötila
+
+Juttuja
+- Lämpötilan ja kosteuden katsominen: näyttää graafisesti tilan
+- Häkävaroitus
+- Huomaa kosteuden noususta milloin saunominen on alkanut ja missä lämpötilassa
+- Pyytää käyttäjältä saunomisen alkamisajan lämpötilan sopivuuden
+- Hälyttää milloin sauna on lämmin, dataa verrataan oletukseen/pilvessä olevaan dataan, kunnes saunojan oma mielipide on tullut statistiikoista selväksi.
+- Kaveritoiminto
+- Ilmoittaa haluttaessa myös valituille kavereille milloin sauna on lämmin.
+- automaattinen statistiikka pilveen?
+- Näyttää keskimääräisen lämpötilan ja ilmankosteuden saunomissession aikana
+- Täytyy huomata milloin saunominen on loppunut (esim. 15 asteen aleneminen lämpötilassa)
+- Datan kerääminen ja analysointi iän/sukupuolen mukaan (voidaan käyttää oletusarvoina tai julkaista statistiikkoja appin kotisivuilla! :D)
+
+Arkkitehtuurilliset jutut
+Kontrollointitaso
+- SensorService: wrapper käytettyjen sensorien tilojen hakemiseen
+- FriendService: kaveritoiminnallisuudet
+- StatusAnalyzer: analysoinnit
+- Initializer: alustaa kaiken?
+
+Mallitaso
+- SensorData: arvot raakadatana
+- SaunaState: analysoitu tila
+
+GUI
+- Notifier: notifies
+- Frontend palikat: Menu-osio ja menun alaisen sivun osio.
+	- Tila
+	- Lämmitys (nyt alan lämmittämään saunaa)
+	- Ystävät
+	- Arvioinnit
+	- Käyttäjä
+
+Projektin aikataulu
+- Viikko 13: git repo ja hello world
+- Viikko 14: frontend suunnittelukuvat/protot, koodauksen aloitus
+- Viikko 15-17: koodaus/toteutus
+- Viikko 18: 2 sivun ja koko jutun palautus

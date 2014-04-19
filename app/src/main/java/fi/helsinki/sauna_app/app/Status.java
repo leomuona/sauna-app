@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import com.sensorcon.sensordrone.android.Drone;
 
+import fi.helsinki.sauna_app.app.model.SensorData;
+import fi.helsinki.sauna_app.app.service.SensorService;
+
 public class Status extends ActionBarActivity {
 
     @Override
@@ -37,20 +40,14 @@ public class Status extends ActionBarActivity {
     }
 
     public void measure(View view) {
-        Drone d = new Drone();
-        d.btConnect("00:17:E9:50:E1:75");
+        SensorService sService = SensorService.getInstance();
+        SensorData sData = sService.measureData();
 
-        d.enableTemperature();
-        d.measureTemperature();
         TextView tempValue = (TextView) findViewById(R.id.temperature);
-        tempValue.setText("Temperature: " + d.temperature_Celsius + " °C");
-
-        d.enableHumidity();
-        d.measureHumidity();
+        tempValue.setText("Temperature: " + sData.getTemperature() + " °C");
 
         TextView humidValue = (TextView) findViewById(R.id.humidity);
-        humidValue.setText("Humidity: " + d.humidity_Percent + " %");
+        humidValue.setText("Humidity: " + sData.getHumidity() + " %");
 
-        d.disconnect();
     }
 }

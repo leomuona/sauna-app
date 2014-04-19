@@ -26,11 +26,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text=""
-        android:layout_weight="0.29" />
+        android:text="" />
+
+    <TextView
+        android:id="@+id/co"
+        android:layout_below="@+id/humidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:text="" />
 
     <Button
-        android:layout_below="@+id/humidity"
+        android:layout_below="@+id/co"
         android:layout_width="166dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

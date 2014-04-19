@@ -6,8 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-
-import com.sensorcon.sensordrone.android.Drone;
+import android.widget.Toast;
 
 import fi.helsinki.sauna_app.app.model.SensorData;
 import fi.helsinki.sauna_app.app.service.SensorService;
@@ -41,13 +40,23 @@ public class Status extends ActionBarActivity {
 
     public void measure(View view) {
         SensorService sService = SensorService.getInstance();
-        SensorData sData = sService.measureData();
 
-        TextView tempValue = (TextView) findViewById(R.id.temperature);
-        tempValue.setText("Temperature: " + sData.getTemperature() + " °C");
+        try {
+            SensorData sData = sService.measureData();
 
-        TextView humidValue = (TextView) findViewById(R.id.humidity);
-        humidValue.setText("Humidity: " + sData.getHumidity() + " %");
+            TextView tempValue = (TextView) findViewById(R.id.temperature);
+            tempValue.setText("Temperature: " + sData.getTemperature() + " °C");
+
+            TextView humidValue = (TextView) findViewById(R.id.humidity);
+            humidValue.setText("Humidity: " + sData.getHumidity() + " %");
+
+            TextView coValue = (TextView) findViewById(R.id.co);
+            coValue.setText("CO concentration: " + sData.getCoData() + " ppm");
+
+        } catch (MeasurementException me) {
+            CharSequence message = me.getMessage();
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
 
     }
 }

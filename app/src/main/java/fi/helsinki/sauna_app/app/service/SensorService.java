@@ -2,6 +2,8 @@ package fi.helsinki.sauna_app.app.service;
 
 import com.sensorcon.sensordrone.android.Drone;
 
+import fi.helsinki.sauna_app.app.MeasurementException;
+import fi.helsinki.sauna_app.app.drone.SaunaDroneEventHandler;
 import fi.helsinki.sauna_app.app.model.SensorData;
 
 public class SensorService {
@@ -9,14 +11,13 @@ public class SensorService {
     private static SensorService instance;
 
     private String dMAC;
-    private Drone drone;
-
     private SensorData currentData;
+    private long timeout;
 
     private SensorService() {
-        drone = new Drone();
         // TODO: set MAC address to configuration file?
         dMAC = "00:17:E9:50:E1:75";
+        timeout = 5;
     }
 
     public static SensorService getInstance() {
@@ -26,30 +27,22 @@ public class SensorService {
         return instance;
     }
 
-    public SensorData measureData() {
-        // TODO: START USING SaunaDroneEventHandler
-        float temp = 0f, humid = 0f;
-        float co = 0;
+    public SensorData measureData() throws MeasurementException {
+        // TODO: move drone away from UI thread
+        Drone drone = new Drone();
+        SaunaDroneEventHandler handler = new SaunaDroneEventHandler(drone);
+        drone.registerDroneListener(handler);
+
         try {
             assertTrue(drone.btConnect(dMAC));
-
-            assertTrue(drone.enableTemperature());
-            assertTrue(drone.enableHumidity());
-            assertTrue(drone.enablePrecisionGas());
-
-            assertTrue(drone.measureTemperature());
-            assertTrue(drone.measureHumidity());
-            assertTrue(drone.measurePrecisionGas());
-
-            temp = drone.temperature_Celsius;
-            humid = drone.humidity_Percent;
-            co = drone.precisionGas_ppmCarbonMonoxide;
-        } catch (AssertException ae) {
-            // TODO: Error message
-            System.out.println("ERROR: SensorService.measureData(): Unable to measure drone data.");
+            assertTrue(handler.waitForEvents(timeout));
+        } catch (AssertException e) {
+           throw new MeasurementException("Failed to measure data");
+        } finally {
+            drone.disconnect();
         }
-        drone.disconnect();
-        return new SensorData(temp, humid, co);
+
+        return new SensorData(handler.getTemperature(), handler.getHumidity(), handler.getCo());
     }
 
     private void assertTrue(boolean val) throws AssertException {

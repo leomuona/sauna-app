@@ -1,6 +1,11 @@
 package fi.helsinki.sauna_app.app.model;
 
-public class SensorData {
+import java.io.Serializable;
+
+public class SensorData implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
     private float temperature;
     private float humidity;
     private float coData;

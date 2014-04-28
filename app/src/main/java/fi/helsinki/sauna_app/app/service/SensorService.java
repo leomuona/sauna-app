@@ -1,34 +1,59 @@
 package fi.helsinki.sauna_app.app.service;
 
+import android.app.IntentService;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.support.v4.content.LocalBroadcastManager;
+import android.widget.Toast;
+
 import com.sensorcon.sensordrone.android.Drone;
 
 import fi.helsinki.sauna_app.app.MeasurementException;
+import fi.helsinki.sauna_app.app.R;
+import fi.helsinki.sauna_app.app.Status;
 import fi.helsinki.sauna_app.app.drone.SaunaDroneEventHandler;
 import fi.helsinki.sauna_app.app.model.SensorData;
 
-public class SensorService {
-
-    private static SensorService instance;
+public class SensorService extends IntentService {
+    public static final String PARAM_OUT_DATA = "OUTPUT_SENSOR_DATA";
+    public static final String PARAM_ERROR_MSG = "OUTPUT_ERROR_MSG";
 
     private String dMAC;
-    private SensorData currentData;
     private long timeout;
 
-    private SensorService() {
-        // TODO: set MAC address to configuration file?
-        dMAC = "00:17:E9:50:E1:75";
-        timeout = 5;
+    public SensorService() {
+        super("SensorService");
+
     }
 
-    public static SensorService getInstance() {
-        if (instance == null) {
-            instance = new SensorService();
+    /**
+     * The IntentService calls this method from the default worker thread with
+     * the intent that started the service. When this method returns, IntentService
+     * stops the service, as appropriate.
+     */
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        Resources res = getResources();
+        dMAC = res.getString(R.string.drone_mac_address);
+        timeout = res.getInteger(R.integer.sensor_timeout);
+
+        SensorData data = null;
+        String err_msg = "";
+        try {
+            data = measureData();
+        } catch (MeasurementException me) {
+            err_msg = me.getLocalizedMessage();
         }
-        return instance;
+        // broadcast result
+        Intent broadcastIntent = new Intent();
+        broadcastIntent.setAction(Status.SensorDataReceiver.ACTION_RESP);
+        broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        broadcastIntent.putExtra(PARAM_OUT_DATA, data);
+        broadcastIntent.putExtra(PARAM_ERROR_MSG, err_msg);
+        LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
     }
 
     public SensorData measureData() throws MeasurementException {
-        // TODO: move drone away from UI thread
         Drone drone = new Drone();
         SaunaDroneEventHandler handler = new SaunaDroneEventHandler(drone);
         drone.registerDroneListener(handler);

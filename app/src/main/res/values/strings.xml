@@ -6,4 +6,9 @@
     <string name="action_settings">Settings</string>
     <string name="update">Measure</string>
 
+    <string name="drone_mac_address">00:17:E9:50:E1:75</string>
+
+    <string name="drone_data_error">Could not receive data.</string>
+    <string name="sensor_data_updated">Sensor data has been updated.</string>
+
 </resources>

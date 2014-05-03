@@ -1,12 +1,11 @@
 package fi.helsinki.sauna_app.app;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 import fi.helsinki.sauna_app.app.model.SensorData;
 import fi.helsinki.sauna_app.app.service.SensorService;
 
-public class Status extends ActionBarActivity {
+public class Status extends Activity {
 
     private SensorDataReceiver receiver;
     private IntentFilter filter;
@@ -75,13 +74,13 @@ public class Status extends ActionBarActivity {
 
             // update view
             TextView tempValue = (TextView) findViewById(R.id.temperature);
-            tempValue.setText("Temperature: " + sData.getTemperature() + " °C");
+            tempValue.setText(String.format(getString(R.string.temperature), sData.getTemperature()));
 
             TextView humidValue = (TextView) findViewById(R.id.humidity);
-            humidValue.setText("Humidity: " + sData.getHumidity() + " %");
+            humidValue.setText(String.format(getString(R.string.humidity), sData.getHumidity()));
 
             TextView coValue = (TextView) findViewById(R.id.co);
-            coValue.setText("CO concentration: " + sData.getCoData() + " ppm");
+            coValue.setText(String.format(getString(R.string.co), sData.getCoData()));
 
             Toast.makeText(context, R.string.sensor_data_updated, Toast.LENGTH_SHORT).show();
         }

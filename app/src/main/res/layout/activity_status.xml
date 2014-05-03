@@ -1,8 +1,7 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -11,42 +10,45 @@
     android:weightSum="1">
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/humidity"
-        android:layout_toRightOf="@+id/humidity"
-        android:text="" />
-
+        android:text="@string/temperature_not_measured" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/humidity"
-        android:layout_below="@+id/temperature"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="" />
+        android:layout_below="@id/temperature"
+        android:text="@string/humidity_not_measured" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/co"
-        android:layout_below="@+id/humidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="" />
+        android:layout_below="@id/humidity"
+        android:text="@string/co_not_measured" />
 
-    <Button
-        android:layout_below="@+id/co"
-        android:layout_width="166dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_column="0"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="130dp"
-        android:onClick="measure"
-        android:text="@string/update" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/co"
+        android:orientation="vertical"
+        android:layout_marginTop="20dp">
 
-</LinearLayout>
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/update_btn"
+            android:onClick="measure"
+            android:text="@string/update_button" />
+
+        <Button
+            style="@style/ButtonStyle"
+            android:text="@string/set_button" />
+
+        <Button
+            style="@style/ButtonStyle"
+            android:text="@string/start_button" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

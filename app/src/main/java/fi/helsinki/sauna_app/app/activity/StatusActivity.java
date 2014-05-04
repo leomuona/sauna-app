@@ -1,13 +1,17 @@
 package fi.helsinki.sauna_app.app.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -83,6 +87,8 @@ public class StatusActivity extends Activity {
     public class SensorDataReceiver extends BroadcastReceiver {
 
         public static final String ACTION_RESP = "SENSOR_DATA_ACTION_RESP";
+        private static final float CO_LOW_LIMIT = 35.0f;
+        private static final float CO_HIGH_LIMIT = 100.0f;
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -95,16 +101,47 @@ public class StatusActivity extends Activity {
             }
 
             // update view
-            TextView tempValue = (TextView) findViewById(R.id.temperature);
-            tempValue.setText(String.format(getString(R.string.temperature), sData.getTemperature()));
+            TextView temperatureView = (TextView) findViewById(R.id.temperature);
+            temperatureView.setText(String.format(getString(R.string.temperature), sData.getTemperature()));
 
-            TextView humidValue = (TextView) findViewById(R.id.humidity);
-            humidValue.setText(String.format(getString(R.string.humidity), sData.getHumidity()));
+            TextView humidView = (TextView) findViewById(R.id.humidity);
+            humidView.setText(String.format(getString(R.string.humidity), sData.getHumidity()));
 
-            TextView coValue = (TextView) findViewById(R.id.co);
-            coValue.setText(String.format(getString(R.string.co), sData.getCoData()));
+            TextView coView = (TextView) findViewById(R.id.co);
+            float coValue = sData.getCoData();
+            coView.setText(String.format(getString(R.string.co), coValue));
+
+            if (coValue >= CO_LOW_LIMIT) {
+                createCoWarning(coView, coValue);
+            }
+
+            // TODO: restore the default text color for normal CO level
 
             Toast.makeText(context, R.string.sensor_data_updated, Toast.LENGTH_SHORT).show();
+        }
+
+        private void createCoWarning(TextView view, float coValue) {
+            int textColor;
+            int alertText;
+
+            if (coValue >= CO_HIGH_LIMIT) {
+                textColor = Color.RED;
+                alertText = R.string.high_co_warning;
+            } else {
+                textColor = Color.YELLOW;
+                alertText = R.string.co_warning;
+            }
+
+            view.setTextColor(textColor);
+
+            new AlertDialog.Builder(StatusActivity.this)
+                    .setMessage(getString(alertText))
+                    .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    }).show();
         }
     }
 }

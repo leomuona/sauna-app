@@ -2,15 +2,17 @@ package fi.helsinki.sauna_app.app.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
-import android.widget.Toast;
 
 import com.sensorcon.sensordrone.android.Drone;
 
 import fi.helsinki.sauna_app.app.MeasurementException;
 import fi.helsinki.sauna_app.app.R;
-import fi.helsinki.sauna_app.app.Status;
+import fi.helsinki.sauna_app.app.activity.SettingsActivity;
+import fi.helsinki.sauna_app.app.activity.StatusActivity;
 import fi.helsinki.sauna_app.app.drone.SaunaDroneEventHandler;
 import fi.helsinki.sauna_app.app.model.SensorData;
 
@@ -34,7 +36,8 @@ public class SensorService extends IntentService {
     @Override
     protected void onHandleIntent(Intent intent) {
         Resources res = getResources();
-        dMAC = res.getString(R.string.drone_mac_address);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        dMAC = sharedPreferences.getString(SettingsActivity.KEY_PREF_DRONE_MAC_ADDRESS, "");
         timeout = res.getInteger(R.integer.sensor_timeout);
 
         SensorData data = null;
@@ -46,7 +49,7 @@ public class SensorService extends IntentService {
         }
         // broadcast result
         Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(Status.SensorDataReceiver.ACTION_RESP);
+        broadcastIntent.setAction(StatusActivity.SensorDataReceiver.ACTION_RESP);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
         broadcastIntent.putExtra(PARAM_OUT_DATA, data);
         broadcastIntent.putExtra(PARAM_ERROR_MSG, err_msg);

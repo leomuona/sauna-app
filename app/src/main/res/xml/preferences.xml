@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:key="pref_drone_mac_address"
+        android:title="@string/pref_drone_mac_address"
+        android:summary="@string/drone_mac_address"
+        android:defaultValue="@string/drone_mac_address"
+        />
+</PreferenceScreen>

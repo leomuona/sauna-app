@@ -1,10 +1,11 @@
-package fi.helsinki.sauna_app.app;
+package fi.helsinki.sauna_app.app.activity;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,10 +14,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import fi.helsinki.sauna_app.app.R;
 import fi.helsinki.sauna_app.app.model.SensorData;
 import fi.helsinki.sauna_app.app.service.SensorService;
 
-public class Status extends Activity {
+public class StatusActivity extends Activity {
+
+    private static final int RESULT_SETTINGS = 1;
 
     private SensorDataReceiver receiver;
     private IntentFilter filter;
@@ -26,10 +30,24 @@ public class Status extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_status);
 
+        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
         filter = new IntentFilter(SensorDataReceiver.ACTION_RESP);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         receiver = new SensorDataReceiver();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(receiver);
     }
 
     @Override
@@ -45,9 +63,13 @@ public class Status extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
         if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
+            startActivityForResult(settingsIntent, RESULT_SETTINGS);
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 

@@ -2,5 +2,7 @@
 <resources>
 
     <integer name="sensor_timeout">5</integer>
+    <integer name="favourite_temperature_default_value">60</integer>
+    <integer name="favourite_humidity_default_value">20</integer>
 
 </resources>

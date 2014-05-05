@@ -26,6 +26,12 @@
     <string name="your_profile_title">Your profile</string>
     <string name="favourite_temperature_not_defined">Favourite temperature: N/A</string>
     <string name="favourite_humidity_not_defined">Favourite humidity: N/A</string>
+    <string name="favourite_temperature">Favourite temperature: %1$.1f °C</string>
+    <string name="favourite_humidity">Favourite humidity: %1$.1f %%</string>
+    <string name="modify_profile_data">Modify values</string>
+    <string name="button_set_temperature">Set temperature</string>
+    <string name="button_set_humidity">Set humidity</string>
+    <string name="invalid_input">Invalid input</string>
 
     <!-- Settings -->
     <string name="pref_drone_mac_address">Drone MAC address</string>

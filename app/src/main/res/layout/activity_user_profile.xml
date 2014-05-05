@@ -34,4 +34,30 @@
         android:layout_below="@id/liking_temperature_range"
         android:text="@string/favourite_humidity_not_defined" />
 
+    <TextView
+        style="@style/NormalTextView"
+        android:id="@+id/modify_profile_data"
+        android:layout_below="@id/liking_humidity_range"
+        android:text="@string/modify_profile_data"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:layout_below="@id/modify_profile_data"
+        android:orientation="vertical">
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/button_set_temperature"
+            android:onClick="modifyTemperature"
+            android:text="@string/button_set_temperature" />
+
+        <Button
+            style="@style/ButtonStyle"
+            android:id="@+id/button_set_humidity"
+            android:onClick="modifyHumidity"
+            android:text="@string/button_set_humidity" />
+    </LinearLayout>
+
 </RelativeLayout>

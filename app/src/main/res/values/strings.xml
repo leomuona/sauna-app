@@ -1,25 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- Title and menu -->
     <string name="app_name">Sauna-App</string>
+    <string name="action_status">Status</string>
+    <string name="action_user_profile">User profile</string>
     <string name="action_settings">Settings</string>
+    <string name="action_quit">Quit</string>
 
-    <string name="pref_drone_mac_address">Drone MAC address</string>
-    <string name="pref_drone_mac_address_summary">Drone MAC address</string>
-    <string name="drone_mac_address">00:17:E9:50:E1:75</string>
-
+    <!-- State -->
     <string name="drone_data_error">Could not receive data.</string>
     <string name="sensor_data_updated">Sensor data has been updated.</string>
-
     <string name="temperature">Temperature: %1$.1f °C</string>
     <string name="humidity">Humidity: %1$.1f %%</string>
     <string name="co">CO concentration: %1$.1f ppm</string>
     <string name="temperature_not_measured">Temperature: N/A</string>
     <string name="humidity_not_measured">Humidity: N/A</string>
     <string name="co_not_measured">CO concentration: N/A</string>
-
     <string name="update_button">Measure</string>
     <string name="set_button">Set temperature</string>
     <string name="start_button">Go to sauna</string>
+
+    <!-- User profile -->
+    <string name="user_profile_info_text">User profile consists of your liking temperature and humidity for sauna. So... how do you like it?</string>
+    <string name="your_profile_title">Your profile</string>
+    <string name="favourite_temperature_not_defined">Favourite temperature: N/A</string>
+    <string name="favourite_humidity_not_defined">Favourite humidity: N/A</string>
+
+    <!-- Settings -->
+    <string name="pref_drone_mac_address">Drone MAC address</string>
+    <string name="pref_drone_mac_address_summary">Drone MAC address</string>
+    <string name="drone_mac_address">00:17:E9:50:E1:75</string>
+
+    <!-- Warnings -->
     <string name="high_co_warning">Warning: High CO level</string>
     <string name="co_warning">Warning: Harmful CO level</string>
+
 </resources>

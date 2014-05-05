@@ -22,7 +22,10 @@ import fi.helsinki.sauna_app.app.service.SensorService;
 
 public class StatusActivity extends Activity {
 
-    private static final int RESULT_SETTINGS = 1;
+    private static final int RESULT_STATUS = 100;
+    private static final int RESULT_USER_PROFILE = 101;
+    private static final int RESULT_SETTINGS = 102;
+    private static final int RESULT_QUIT = 103;
 
     private SensorDataReceiver receiver;
     private IntentFilter filter;
@@ -55,7 +58,7 @@ public class StatusActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.status, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -65,14 +68,20 @@ public class StatusActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        switch (id) {
+            case R.id.action_status:
 
-        if (id == R.id.action_settings) {
-            Intent settingsIntent = new Intent(this, SettingsActivity.class);
-            startActivityForResult(settingsIntent, RESULT_SETTINGS);
-            return true;
+                return true;
+            case R.id.action_user_profile:
+
+                return true;
+            case R.id.action_settings:
+                Intent settingsIntent = new Intent(this, SettingsActivity.class);
+                startActivityForResult(settingsIntent, RESULT_SETTINGS);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
     public void measure(View view) {

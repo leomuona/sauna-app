@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="fi.helsinki.sauna_app.app.activity.UserProfileActivity"
+    android:weightSum="1">
+
+    <TextView
+        style="@style/NormalTextView"
+        android:id="@+id/user_profile_info_text"
+        android:text="@string/user_profile_info_text" />
+
+    <TextView
+        style="@style/NormalTextView"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:id="@+id/your_profile_title"
+        android:layout_below="@id/user_profile_info_text"
+        android:text="@string/your_profile_title" />
+
+    <TextView
+        style="@style/NormalTextView"
+        android:id="@+id/liking_temperature_range"
+        android:layout_below="@id/your_profile_title"
+        android:text="@string/favourite_temperature_not_defined" />
+
+    <TextView
+        style="@style/NormalTextView"
+        android:id="@+id/liking_humidity_range"
+        android:layout_below="@id/liking_temperature_range"
+        android:text="@string/favourite_humidity_not_defined" />
+
+</RelativeLayout>

@@ -38,17 +38,5 @@
             android:id="@+id/update_btn"
             android:onClick="measure"
             android:text="@string/update_button" />
-
-        <Button
-            style="@style/ButtonStyle"
-            android:text="@string/set_button" />
-
-        <Button
-            style="@style/ButtonStyle"
-            android:text="@string/start_button" />
-
     </LinearLayout>
-
-
-
 </RelativeLayout>

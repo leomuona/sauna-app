@@ -10,18 +10,18 @@
     android:weightSum="1">
 
     <TextView
-        style="@style/TextViewStyle"
+        style="@style/NormalTextView"
         android:id="@+id/temperature"
         android:text="@string/temperature_not_measured" />
 
     <TextView
-        style="@style/TextViewStyle"
+        style="@style/NormalTextView"
         android:id="@+id/humidity"
         android:layout_below="@id/temperature"
         android:text="@string/humidity_not_measured" />
 
     <TextView
-        style="@style/TextViewStyle"
+        style="@style/NormalTextView"
         android:id="@+id/co"
         android:layout_below="@id/humidity"
         android:text="@string/co_not_measured" />

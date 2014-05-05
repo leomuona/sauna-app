@@ -2,13 +2,21 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="android:Theme.Holo">
+        <item name="android:textViewStyle">@style/NormalTextView</item>
     </style>
 
-    <style name="TextViewStyle">
+    <style name="NormalTextView">
         <item name="android:padding">5dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:textColor">#D3D3D3</item>
+    </style>
+    <style name="YellowTextView" parent="NormalTextView">
+        <item name="android:textColor">#FFFF00</item>
+    </style>
+    <style name="RedTextView" parent="NormalTextView">
+        <item name="android:textColor">#FF0000</item>
     </style>
     <style name="ButtonStyle">
         <item name="android:layout_width">fill_parent</item>

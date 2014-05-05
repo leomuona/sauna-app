@@ -7,11 +7,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -110,30 +108,24 @@ public class StatusActivity extends Activity {
             TextView coView = (TextView) findViewById(R.id.co);
             float coValue = sData.getCoData();
             coView.setText(String.format(getString(R.string.co), coValue));
-
-            if (coValue >= CO_LOW_LIMIT) {
-                createCoWarning(coView, coValue);
-            }
-
-            // TODO: restore the default text color for normal CO level
+            showCoInfo(context, coView, coValue);
 
             Toast.makeText(context, R.string.sensor_data_updated, Toast.LENGTH_SHORT).show();
         }
 
-        private void createCoWarning(TextView view, float coValue) {
-            int textColor;
-            int alertText;
-
+        private void showCoInfo(Context context, TextView view, float coValue) {
             if (coValue >= CO_HIGH_LIMIT) {
-                textColor = Color.RED;
-                alertText = R.string.high_co_warning;
+                view.setTextAppearance(context, R.style.RedTextView);
+                showAlert(R.string.high_co_warning);
+            } else if (coValue >= CO_LOW_LIMIT) {
+                view.setTextAppearance(context, R.style.YellowTextView);
+                showAlert(R.string.co_warning);
             } else {
-                textColor = Color.YELLOW;
-                alertText = R.string.co_warning;
+                view.setTextAppearance(context, R.style.NormalTextView);
             }
+        }
 
-            view.setTextColor(textColor);
-
+        private void showAlert(int alertText) {
             new AlertDialog.Builder(StatusActivity.this)
                     .setMessage(getString(alertText))
                     .setNeutralButton(android.R.string.ok, new DialogInterface.OnClickListener() {

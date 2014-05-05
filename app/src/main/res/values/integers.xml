@@ -4,5 +4,9 @@
     <integer name="sensor_timeout">5</integer>
     <integer name="favourite_temperature_default_value">60</integer>
     <integer name="favourite_humidity_default_value">20</integer>
+    <!-- If temperature is within 8 degrees -->
+    <integer name="temperature_liking_max_delta">8</integer>
+    <!-- If humidity is within 10 percent -->
+    <integer name="humidity_liking_max_delta">10</integer>
 
 </resources>

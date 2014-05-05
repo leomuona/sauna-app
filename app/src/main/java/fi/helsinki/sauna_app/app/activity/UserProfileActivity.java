@@ -22,9 +22,6 @@ import fi.helsinki.sauna_app.app.Result;
 
 public class UserProfileActivity extends Activity {
 
-    public static final String PREF_USER_TEMP_KEY = "pref_user_temp_key";
-    public static final String PREF_USER_HUMI_KEY = "pref_user_humi_key";
-
     private Button modTempButton;
     private Button modHumiButton;
     private Context context = this;
@@ -37,11 +34,11 @@ public class UserProfileActivity extends Activity {
         // set default values if able
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         float defTemp = getResources().getInteger(R.integer.favourite_temperature_default_value);
-        float useTemp = sharedPref.getFloat(PREF_USER_TEMP_KEY, defTemp);
+        float useTemp = sharedPref.getFloat(getString(R.string.pref_user_temperature_key), defTemp);
         updateTemperature(useTemp);
 
         float defHumi = getResources().getInteger(R.integer.favourite_humidity_default_value);
-        float useHumi = sharedPref.getFloat(PREF_USER_HUMI_KEY, defHumi);
+        float useHumi = sharedPref.getFloat(getString(R.string.pref_user_humidity_key), defHumi);
         updateHumidity(useHumi);
 
         // temperature button
@@ -151,7 +148,7 @@ public class UserProfileActivity extends Activity {
     private void updateTemperature(float temperature) {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putFloat(PREF_USER_TEMP_KEY, temperature);
+        editor.putFloat(getString(R.string.pref_user_temperature_key), temperature);
         editor.commit();
 
         TextView tempView = (TextView) findViewById(R.id.liking_temperature_range);
@@ -161,7 +158,7 @@ public class UserProfileActivity extends Activity {
     private void updateHumidity(float humidity) {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putFloat(PREF_USER_HUMI_KEY, humidity);
+        editor.putFloat(getString(R.string.pref_user_humidity_key), humidity);
         editor.commit();
 
         TextView humiView = (TextView) findViewById(R.id.liking_humidity_range);

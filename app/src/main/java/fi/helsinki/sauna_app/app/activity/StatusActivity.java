@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
@@ -100,6 +101,46 @@ public class StatusActivity extends Activity {
         Intent sensorIntent = new Intent(this, SensorService.class);
         startService(sensorIntent);
 
+    }
+
+    /**
+     * Compare temperature with profile's favourite temperature +- delta
+     * @param temperature
+     * @return -1 if too cold, 0 if within delta, 1 if too hot
+     */
+    public int compareProfileTemperatureDelta(float temperature) {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        float defTemp = getResources().getInteger(R.integer.favourite_temperature_default_value);
+        float favTemp = sharedPref.getFloat(getString(R.string.pref_user_temperature_key), defTemp);
+        float tempDelta = (float) getResources().getInteger(R.integer.temperature_liking_max_delta);
+
+        if (favTemp + tempDelta < temperature) {
+            return 1;
+        } else if (favTemp - tempDelta > temperature) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * Compare humidity with profiles favourable humidity +- delta
+     * @param humidity
+     * @return -1 if too dry, 0 if within delta, 1 if too humid
+     */
+    public int compareProfileHumidityDelta(float humidity) {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        float defHumi = getResources().getInteger(R.integer.favourite_humidity_default_value);
+        float favHumi = sharedPref.getFloat(getString(R.string.pref_user_humidity_key), defHumi);
+        float humiDelta = (float) getResources().getInteger(R.integer.humidity_liking_max_delta);
+
+        if (favHumi + humiDelta < humidity) {
+            return 1;
+        } else if (favHumi - humiDelta > humidity) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 
     public class SensorDataReceiver extends BroadcastReceiver {

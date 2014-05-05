@@ -20,6 +20,11 @@
     <string name="update_button">Measure</string>
     <string name="set_button">Set temperature</string>
     <string name="start_button">Go to sauna</string>
+    <string name="cold">Cold</string>
+    <string name="good">Good</string>'
+    <string name="hot">Hot</string>
+    <string name="dry">Dry</string>
+    <string name="humid">Humid</string>
 
     <!-- User profile -->
     <string name="user_profile_info_text">User profile consists of your liking temperature and humidity for sauna. So... how do you like it?</string>
@@ -32,6 +37,8 @@
     <string name="button_set_temperature">Set temperature</string>
     <string name="button_set_humidity">Set humidity</string>
     <string name="invalid_input">Invalid input</string>
+    <string name="pref_user_temperature_key">pref_user_temperature_key</string>
+    <string name="pref_user_humidity_key">pref_user_humidity_key</string>
 
     <!-- Settings -->
     <string name="pref_drone_mac_address">Drone MAC address</string>

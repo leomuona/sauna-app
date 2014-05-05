@@ -17,15 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import fi.helsinki.sauna_app.app.R;
+import fi.helsinki.sauna_app.app.Result;
 import fi.helsinki.sauna_app.app.model.SensorData;
 import fi.helsinki.sauna_app.app.service.SensorService;
 
 public class StatusActivity extends Activity {
-
-    private static final int RESULT_STATUS = 100;
-    private static final int RESULT_USER_PROFILE = 101;
-    private static final int RESULT_SETTINGS = 102;
-    private static final int RESULT_QUIT = 103;
 
     private SensorDataReceiver receiver;
     private IntentFilter filter;
@@ -70,17 +66,32 @@ public class StatusActivity extends Activity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_status:
-
+                // do nothing, we are already here.
                 return true;
             case R.id.action_user_profile:
-
+                Intent upIntent = new Intent(this, UserProfileActivity.class);
+                startActivityForResult(upIntent, Result.RESULT_USER_PROFILE);
                 return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivityForResult(settingsIntent, RESULT_SETTINGS);
+                startActivityForResult(settingsIntent, Result.RESULT_SETTINGS);
+                return true;
+            case R.id.action_quit:
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case Result.RESULT_QUIT:
+                finish();
+                break;
+            default:
+                // do nothing.
         }
     }
 

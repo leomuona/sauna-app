@@ -1,18 +1,14 @@
 package fi.helsinki.sauna_app.app.activity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import fi.helsinki.sauna_app.app.R;
+import fi.helsinki.sauna_app.app.Result;
 
-public class UserProfileActivity extends ActionBarActivity {
-
-    private static final int RESULT_STATUS = 100;
-    private static final int RESULT_USER_PROFILE = 101;
-    private static final int RESULT_SETTINGS = 102;
-    private static final int RESULT_QUIT = 103;
+public class UserProfileActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +32,19 @@ public class UserProfileActivity extends ActionBarActivity {
         int id = item.getItemId();
         switch (id) {
             case R.id.action_status:
-
+                this.setResult(Result.RESULT_USER_PROFILE);
+                finish(); // returns to status activity
                 return true;
             case R.id.action_user_profile:
-
+                // do nothing, we are already here.
                 return true;
             case R.id.action_settings:
                 Intent settingsIntent = new Intent(this, SettingsActivity.class);
-                startActivityForResult(settingsIntent, RESULT_SETTINGS);
+                startActivityForResult(settingsIntent, Result.RESULT_SETTINGS);
+                return true;
+            case R.id.action_quit:
+                this.setResult(Result.RESULT_QUIT);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,7 +33,7 @@ public class UserProfileActivity extends Activity {
         setContentView(R.layout.activity_user_profile);
 
         // set default values if able
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         float defTemp = getResources().getInteger(R.integer.favourite_temperature_default_value);
         float useTemp = sharedPref.getFloat(getString(R.string.pref_user_temperature_key), defTemp);
         updateTemperature(useTemp);
@@ -146,7 +147,7 @@ public class UserProfileActivity extends Activity {
     }
 
     private void updateTemperature(float temperature) {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(getString(R.string.pref_user_temperature_key), temperature);
         editor.commit();
@@ -156,7 +157,7 @@ public class UserProfileActivity extends Activity {
     }
 
     private void updateHumidity(float humidity) {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putFloat(getString(R.string.pref_user_humidity_key), humidity);
         editor.commit();

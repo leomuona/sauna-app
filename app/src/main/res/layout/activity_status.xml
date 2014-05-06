@@ -16,9 +16,24 @@
 
     <TextView
         style="@style/NormalTextView"
+        android:id="@+id/temperature_feel"
+        android:layout_toRightOf="@id/temperature"
+        android:textAllCaps="true"
+        android:text="" />
+
+    <TextView
+        style="@style/NormalTextView"
         android:id="@+id/humidity"
         android:layout_below="@id/temperature"
         android:text="@string/humidity_not_measured" />
+
+    <TextView
+        style="@style/NormalTextView"
+        android:id="@+id/humidity_feel"
+        android:layout_below="@id/temperature"
+        android:layout_toRightOf="@id/humidity"
+        android:textAllCaps="true"
+        android:text="" />
 
     <TextView
         style="@style/NormalTextView"

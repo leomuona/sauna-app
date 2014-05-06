@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.preference.PreferenceManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.os.Bundle;
@@ -24,8 +25,10 @@ import fi.helsinki.sauna_app.app.service.SensorService;
 
 public class StatusActivity extends Activity {
 
-    private SensorDataReceiver receiver;
-    private IntentFilter filter;
+    private SensorDataReceiver receiver = null;
+    private IntentFilter filter = null;
+
+    private SensorData sensorData = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class StatusActivity extends Activity {
         super.onResume();
 
         LocalBroadcastManager.getInstance(this).registerReceiver(receiver, filter);
+        updateFeelViews();
     }
 
     @Override
@@ -103,13 +107,48 @@ public class StatusActivity extends Activity {
 
     }
 
+    private void updateFeelViews() {
+        if (sensorData == null) {
+            return;
+        }
+
+        // temperature
+        TextView tempFeelView = (TextView) findViewById(R.id.temperature_feel);
+        int t = compareProfileTemperatureDelta(sensorData.getTemperature());
+        if (t < 0) {
+            tempFeelView.setTextColor(Color.YELLOW);
+            tempFeelView.setText(R.string.cold);
+        } else if (t > 0) {
+            tempFeelView.setTextColor(Color.YELLOW);
+            tempFeelView.setText(R.string.hot);
+        } else {
+            tempFeelView.setTextColor(Color.GREEN);
+            tempFeelView.setText(R.string.good);
+        }
+
+        // humidity
+        TextView humiFeelView = (TextView) findViewById(R.id.humidity_feel);
+        int h = compareProfileHumidityDelta(sensorData.getHumidity());
+        if (h < 0) {
+            humiFeelView.setTextColor(Color.YELLOW);
+            humiFeelView.setText(R.string.dry);
+        } else if (h > 0) {
+            humiFeelView.setTextColor(Color.YELLOW);
+            humiFeelView.setText(R.string.humid);
+        } else {
+            humiFeelView.setTextColor(Color.GREEN);
+            humiFeelView.setText(R.string.good);
+        }
+
+    }
+
     /**
      * Compare temperature with profile's favourite temperature +- delta
      * @param temperature
      * @return -1 if too cold, 0 if within delta, 1 if too hot
      */
-    public int compareProfileTemperatureDelta(float temperature) {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+    private int compareProfileTemperatureDelta(float temperature) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         float defTemp = getResources().getInteger(R.integer.favourite_temperature_default_value);
         float favTemp = sharedPref.getFloat(getString(R.string.pref_user_temperature_key), defTemp);
         float tempDelta = (float) getResources().getInteger(R.integer.temperature_liking_max_delta);
@@ -128,8 +167,8 @@ public class StatusActivity extends Activity {
      * @param humidity
      * @return -1 if too dry, 0 if within delta, 1 if too humid
      */
-    public int compareProfileHumidityDelta(float humidity) {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+    private int compareProfileHumidityDelta(float humidity) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         float defHumi = getResources().getInteger(R.integer.favourite_humidity_default_value);
         float favHumi = sharedPref.getFloat(getString(R.string.pref_user_humidity_key), defHumi);
         float humiDelta = (float) getResources().getInteger(R.integer.humidity_liking_max_delta);
@@ -158,6 +197,7 @@ public class StatusActivity extends Activity {
                 Toast.makeText(context, err_msg, Toast.LENGTH_SHORT).show();
                 return;
             }
+            sensorData = sData;
 
             // update view
             TextView temperatureView = (TextView) findViewById(R.id.temperature);
@@ -170,6 +210,8 @@ public class StatusActivity extends Activity {
             float coValue = sData.getCoData();
             coView.setText(String.format(getString(R.string.co), coValue));
             showCoInfo(context, coView, coValue);
+
+            updateFeelViews();
 
             Toast.makeText(context, R.string.sensor_data_updated, Toast.LENGTH_SHORT).show();
         }

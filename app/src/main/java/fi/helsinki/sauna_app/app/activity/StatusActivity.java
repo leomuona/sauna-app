@@ -221,9 +221,7 @@ public class StatusActivity extends Activity {
             humidView.setText(String.format(getString(R.string.humidity), sData.getHumidity()));
 
             TextView coView = (TextView) findViewById(R.id.co);
-            //float coValue = sData.getCoData();
-            //random co value for demo
-            float coValue = (float) Math.random() * 150;
+            float coValue = sData.getCoData();
             coView.setText(String.format(getString(R.string.co), coValue));
             showCoInfo(context, coView, coValue);
 

@@ -21,6 +21,9 @@ import android.widget.Toast;
 import fi.helsinki.sauna_app.app.R;
 import fi.helsinki.sauna_app.app.Result;
 
+/**
+ * User profile activity to handle user's likings for sauna's temperature and humidity.
+ */
 public class UserProfileActivity extends Activity {
 
     private Button modTempButton;
@@ -42,7 +45,7 @@ public class UserProfileActivity extends Activity {
         float useHumi = sharedPref.getFloat(getString(R.string.pref_user_humidity_key), defHumi);
         updateHumidity(useHumi);
 
-        // temperature button
+        // temperature button and input dialog
         modTempButton = (Button) findViewById(R.id.button_set_temperature);
         modTempButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +79,7 @@ public class UserProfileActivity extends Activity {
             }
         });
 
-        // humidity button
+        // humidity button and input dialog
         modHumiButton = (Button) findViewById(R.id.button_set_humidity);
         modHumiButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -138,6 +141,7 @@ public class UserProfileActivity extends Activity {
                 startActivityForResult(settingsIntent, Result.RESULT_SETTINGS);
                 return true;
             case R.id.action_quit:
+                // quit the program
                 this.setResult(Result.RESULT_QUIT);
                 finish();
                 return true;
@@ -146,6 +150,10 @@ public class UserProfileActivity extends Activity {
         }
     }
 
+    /**
+     * Updates preferred temperature information to shared preferences and front end.
+     * @param temperature
+     */
     private void updateTemperature(float temperature) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
@@ -156,6 +164,10 @@ public class UserProfileActivity extends Activity {
         tempView.setText(String.format(getString(R.string.favourite_temperature), temperature));
     }
 
+    /**
+     * Updates preferred humidity information to shared preferences and front end.
+     * @param humidity
+     */
     private void updateHumidity(float humidity) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();

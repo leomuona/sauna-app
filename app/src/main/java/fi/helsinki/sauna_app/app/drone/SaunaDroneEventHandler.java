@@ -8,7 +8,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Handles SensorDrone events. This is the correct way to do it, I think.
+ * Handles SensorDrone events. Pipes SensorDrone calls.
  */
 public class SaunaDroneEventHandler implements DroneEventHandler {
     private Drone drone;

@@ -2,6 +2,9 @@ package fi.helsinki.sauna_app.app.model;
 
 import java.io.Serializable;
 
+/**
+ * Data wrapper for SensorDrone measurement data.
+ */
 public class SensorData implements Serializable {
 
     private static final long serialVersionUID = 1L;

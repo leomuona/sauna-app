@@ -1,7 +1,7 @@
 package fi.helsinki.sauna_app.app;
 
 /**
- * Created by leo on 5/5/14.
+ * Results for our activities.
  */
 public class Result {
     public static final int RESULT_STATUS = 100;

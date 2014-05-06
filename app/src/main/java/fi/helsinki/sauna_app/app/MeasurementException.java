@@ -1,7 +1,7 @@
 package fi.helsinki.sauna_app.app;
 
 /**
- * Created by jeuro on 4/19/14.
+ * Our own measurement exception.
  */
 public class MeasurementException extends Exception {
     public MeasurementException(String message) {

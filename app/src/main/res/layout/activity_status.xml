@@ -11,12 +11,21 @@
 
     <TextView
         style="@style/NormalTextView"
+        android:textStyle="bold"
+        android:textAllCaps="true"
+        android:id="@+id/state_title"
+        android:text="@string/state_title" />
+
+    <TextView
+        style="@style/NormalTextView"
         android:id="@+id/temperature"
+        android:layout_below="@id/state_title"
         android:text="@string/temperature_not_measured" />
 
     <TextView
         style="@style/NormalTextView"
         android:id="@+id/temperature_feel"
+        android:layout_below="@id/state_title"
         android:layout_toRightOf="@id/temperature"
         android:textAllCaps="true"
         android:text="" />

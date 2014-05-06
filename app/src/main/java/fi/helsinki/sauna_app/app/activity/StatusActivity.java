@@ -23,6 +23,9 @@ import fi.helsinki.sauna_app.app.Result;
 import fi.helsinki.sauna_app.app.model.SensorData;
 import fi.helsinki.sauna_app.app.service.SensorService;
 
+/**
+ * Applications main/initial activity. Indicates sauna's state.
+ */
 public class StatusActivity extends Activity {
 
     private SensorDataReceiver receiver = null;
@@ -36,6 +39,7 @@ public class StatusActivity extends Activity {
         setContentView(R.layout.activity_status);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
+
         filter = new IntentFilter(SensorDataReceiver.ACTION_RESP);
         filter.addCategory(Intent.CATEGORY_DEFAULT);
         receiver = new SensorDataReceiver();
@@ -100,6 +104,10 @@ public class StatusActivity extends Activity {
         }
     }
 
+    /**
+     * Measure new values from SensorDrone. Uses SensorService class.
+     * @param view
+     */
     public void measure(View view) {
         // Starts SensorService, response is handled by receiver.
         Intent sensorIntent = new Intent(this, SensorService.class);
@@ -107,6 +115,9 @@ public class StatusActivity extends Activity {
 
     }
 
+    /**
+     * Update view to indicate how temperature and humidity refer's to user's liking.
+     */
     private void updateFeelViews() {
         if (sensorData == null) {
             return;
@@ -182,8 +193,14 @@ public class StatusActivity extends Activity {
         }
     }
 
+    /**
+     * Receiver for sensor data that is sent by SensorService.
+     */
     public class SensorDataReceiver extends BroadcastReceiver {
 
+        /**
+         * Response code to be used by SensorService.
+         */
         public static final String ACTION_RESP = "SENSOR_DATA_ACTION_RESP";
 
         @Override
@@ -215,6 +232,12 @@ public class StatusActivity extends Activity {
             Toast.makeText(context, R.string.sensor_data_updated, Toast.LENGTH_SHORT).show();
         }
 
+        /**
+         * Show CO information and publish additional error messages.
+         * @param context
+         * @param view
+         * @param coValue
+         */
         private void showCoInfo(Context context, TextView view, float coValue) {
             float coLowLimit = (float) getResources().getInteger(R.integer.co_low_limit);
             float coHighLimit = (float) getResources().getInteger(R.integer.co_high_limit);
@@ -230,6 +253,10 @@ public class StatusActivity extends Activity {
             }
         }
 
+        /**
+         * Show alert popup.
+         * @param alertText
+         */
         private void showAlert(int alertText) {
             new AlertDialog.Builder(StatusActivity.this)
                     .setMessage(getString(alertText))

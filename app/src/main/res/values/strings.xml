@@ -25,6 +25,7 @@
     <string name="hot">Hot</string>
     <string name="dry">Dry</string>
     <string name="humid">Humid</string>
+    <string name="state_title">Sauna state</string>
 
     <!-- User profile -->
     <string name="user_profile_info_text">User profile consists of your liking temperature and humidity for sauna. So... how do you like it?</string>

@@ -9,10 +9,13 @@ import android.preference.PreferenceManager;
 import fi.helsinki.sauna_app.app.R;
 
 /**
- * Created by leo on 5/4/14.
+ * Settings activity for modifying application's non-user-specific preferences.
  */
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+    /**
+     * Key for preferences.xml drone's mac address setting.
+     */
     public static final String KEY_PREF_DRONE_MAC_ADDRESS = "pref_drone_mac_address";
 
     @Override

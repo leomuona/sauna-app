@@ -16,6 +16,9 @@ import fi.helsinki.sauna_app.app.activity.StatusActivity;
 import fi.helsinki.sauna_app.app.drone.SaunaDroneEventHandler;
 import fi.helsinki.sauna_app.app.model.SensorData;
 
+/**
+ * Service to handle SensorDrone measurements. Uses a worker thread.
+ */
 public class SensorService extends IntentService {
     public static final String PARAM_OUT_DATA = "OUTPUT_SENSOR_DATA";
     public static final String PARAM_ERROR_MSG = "OUTPUT_ERROR_MSG";
@@ -56,6 +59,11 @@ public class SensorService extends IntentService {
         LocalBroadcastManager.getInstance(this).sendBroadcast(broadcastIntent);
     }
 
+    /**
+     * Measure data with SensorDrone
+     * @return SensorData
+     * @throws MeasurementException
+     */
     public SensorData measureData() throws MeasurementException {
         Drone drone = new Drone();
         SaunaDroneEventHandler handler = new SaunaDroneEventHandler(drone);
@@ -73,12 +81,20 @@ public class SensorService extends IntentService {
         return new SensorData(handler.getTemperature(), handler.getHumidity(), handler.getCo());
     }
 
+    /**
+     * Our own assert function.
+     * @param val that should be true
+     * @throws AssertException
+     */
     private void assertTrue(boolean val) throws AssertException {
         if (!val) {
             throw new AssertException("Value was not true.");
         }
     }
 
+    /**
+     * Our own AssertException.
+     */
     private class AssertException extends Exception {
         public AssertException() { super(); }
         public AssertException(String message) { super(message); }

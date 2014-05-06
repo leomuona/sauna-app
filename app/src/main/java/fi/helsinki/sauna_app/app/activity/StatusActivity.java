@@ -185,12 +185,9 @@ public class StatusActivity extends Activity {
     public class SensorDataReceiver extends BroadcastReceiver {
 
         public static final String ACTION_RESP = "SENSOR_DATA_ACTION_RESP";
-        private static final float CO_LOW_LIMIT = 35.0f;
-        private static final float CO_HIGH_LIMIT = 100.0f;
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
             SensorData sData = (SensorData) intent.getSerializableExtra(SensorService.PARAM_OUT_DATA);
             if (sData == null) {
                 String err_msg = intent.getStringExtra(SensorService.PARAM_ERROR_MSG);
@@ -219,10 +216,13 @@ public class StatusActivity extends Activity {
         }
 
         private void showCoInfo(Context context, TextView view, float coValue) {
-            if (coValue >= CO_HIGH_LIMIT) {
+            float coLowLimit = (float) getResources().getInteger(R.integer.co_low_limit);
+            float coHighLimit = (float) getResources().getInteger(R.integer.co_high_limit);
+
+            if (coValue >= coHighLimit) {
                 view.setTextAppearance(context, R.style.RedTextView);
                 showAlert(R.string.high_co_warning);
-            } else if (coValue >= CO_LOW_LIMIT) {
+            } else if (coValue >= coLowLimit) {
                 view.setTextAppearance(context, R.style.YellowTextView);
                 showAlert(R.string.co_warning);
             } else {

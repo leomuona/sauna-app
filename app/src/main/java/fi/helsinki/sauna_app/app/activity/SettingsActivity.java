@@ -18,6 +18,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      */
     public static final String KEY_PREF_DRONE_MAC_ADDRESS = "pref_drone_mac_address";
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,6 +29,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         dMacPref.setSummary(sharedPref.getString(KEY_PREF_DRONE_MAC_ADDRESS, ""));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onResume() {
         super.onResume();
@@ -35,6 +37,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 .registerOnSharedPreferenceChangeListener(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     protected void onPause() {
         super.onPause();
@@ -42,6 +45,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if (KEY_PREF_DRONE_MAC_ADDRESS.equals(key)) {

@@ -50,13 +50,11 @@
         <Button
             style="@style/ButtonStyle"
             android:id="@+id/button_set_temperature"
-            android:onClick="modifyTemperature"
             android:text="@string/button_set_temperature" />
 
         <Button
             style="@style/ButtonStyle"
             android:id="@+id/button_set_humidity"
-            android:onClick="modifyHumidity"
             android:text="@string/button_set_humidity" />
     </LinearLayout>
 

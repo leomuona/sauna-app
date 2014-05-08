@@ -26,15 +26,16 @@ As of now, the application is quite basic. However, future improvements have bee
 
 \noindent\textbf{Warming up state:} A simple improvement to the application would a "warming up state". In this state the application would measure sauna state for example every five minutes and when the sauna temperature would rise to be within user's preferenced temperature, it would notify it to the user. This way, user wouldn't have to measure the temperature manually every time to check if the sauna is warm enough via \textit{Measure} button. \\
 
-\noindent\textbf{Cloud functionalities:} No server-side functionality is currently available, but the next implementation step would be to upload the collected sensor data to the cloud. The data related to a user profile could be used for publishing statistics of e.g. the average length and temperature of their sauna visits. The server could also analyze data collected from several users, for example to create default user preference profiles based on age and gender. \\
+\noindent\textbf{Cloud functionalities:} No server-side functionality is currently available, but the next implementation step would be to upload the collected sensor data to the cloud. The data related to a user profile could be used for publishing statistics of e.g. the average length and temperature of their sauna visits. The server could also analyze data collected from several users, for example to create default user preference profiles based on age and gender. A basic architectural design of these cloud service functionalities is shown in Figure~\ref{fig:CloudArc}, which demonstrates how the mobile devices would be connected to our designated Sauna server via mobile data connection. \\
+
+\begin{figure}[h!]
+\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{design.pdf}
+\caption{Architectural design of cloud services}
+\label{fig:CloudArc}
+\end{figure}
 
 \noindent\textbf{Smarter user profiles:} In the future, the application could be made smarter so that instead of the user adjusting the preferred temperature and humidity values in their profile, the server would try to find the optimal values for each user based on their earlier sauna sessions. The user could rate each sauna session and the feedback would be linked to the sensor data obtained during the session. The results would then be compared with previously collected data and the user's preferences would be adjusted if necessary. To implement this, measuring should be done periodically without the user having to press the \textit{Measure} button. Another enhancement to user profiles would be to have different profiles for different sauna types. For example, if user would like to use the application with turkish saunas and finnish saunas, there should be different measurement profiles for those. \\
 
 \noindent\textbf{Friends and sauna invites:} Another new feature to the application could be a "friend functionality", where the user can add other Sauna-App users as friends. The application could be configured to automatically send a message to selected friends when the sauna is ready, inviting them over. \\
-
-\section{Architecture}
-\begin{figure}[h!]
-\includegraphics[width=\textwidth, height=\textheight, keepaspectratio]{design.pdf}
-\end{figure}
 
 \end{document}

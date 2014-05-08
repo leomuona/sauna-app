@@ -13,4 +13,7 @@ allprojects {
     repositories {
         mavenCentral()
     }
+    tasks.withType(Compile) {
+        options.compilerArgs << "-Xlint:deprecation"
+    }
 }
